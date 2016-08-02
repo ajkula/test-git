@@ -11,6 +11,16 @@ session_start();
 
 define('ROOT_FOLDER', __DIR__);
 
+// Gestion visiteur Anonyme
+if(!isset($_SESSION['client'])){
+    $client = new ClientDTO;
+    $client->setNom("Anonyme");
+    $_SESSION['client'] = serialize($client);
+}else{
+    $client = unserialize($_SESSION['client']);
+}
+
+var_dump($client);
 //Récupération du controller
 $controller = filter_input(INPUT_GET, 'controller');
 
@@ -22,7 +32,6 @@ if(empty($controller)){
 
 $dto = new ClientDTO;
 
-var_dump($dto);
 
 require ROOT_FOLDER."/controllers/$controller.php";
 

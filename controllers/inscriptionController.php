@@ -21,12 +21,14 @@ if(isset($submit)){
         //Enregistrement de l'utilisateur
 //        $message = saveUser($email, $pass);
         $client = new ClientDTO;
-        $client->setEmail($email)->setNom($nom)->setMotDePasse($Pass);
+        $client->setEmail($email)->setNom($nom)->setMotDePasseEnClair($Pass);
                 
         $dao = new ClientDAO(getPDO());
-        
-        if($dao->save($client)){
+        $client = $dao->save($client);
+        if($client){
             $message = "Vous êtes inscrit";
+            $_SESSION['client'] = serialize($client);
+            header('locavtion:index.php?controller=catalogue');
         } else {
         $message = "Votre inscription a échoué";    
         }
