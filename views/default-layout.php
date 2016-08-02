@@ -22,7 +22,7 @@ and open the template in the editor.
                 <nav class="col-md-12">
                     <ul class="nav nav-pills">
                         <li><?php echo linkToController('mainController', 'Accueil')?></li>
-                        <li><?php echo linkToController('testController', 'Test')?></li>
+                        <li><?php echo linkToController('inscriptionController', 'Inscription')?></li>
                         <li><?php echo linkToController('catalogue', 'Catalogue')?></li>
                     </ul>
                 </nav>

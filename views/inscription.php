@@ -6,6 +6,15 @@
 
 <form method="post" action="index.php?controller=inscriptionController">
     <div class="form-group">
+        <label>Nom
+            <input type="text" 
+                   name="nom" 
+                   placeholder="votre nom" 
+                   class="form-control">
+        </label>
+    </div>
+    
+    <div class="form-group">
         <label>E-mail
             <input type="email" 
                    name="email" 

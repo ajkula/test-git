@@ -1,6 +1,7 @@
 <?php
 
 //Récupération des données
+$nom = filter_input(INPUT_POST,'nom', FILTER_SANITIZE_STRING);
 $email = filter_input(INPUT_POST,'email', FILTER_VALIDATE_EMAIL);
 $pass = filter_input(INPUT_POST, 'pass');
 $passConfirm = filter_input(INPUT_POST, 'pass-confirm');
@@ -18,7 +19,17 @@ if(isset($submit)){
         $message = "Votre mot de passe doit comporter au moins 5 caractères";
     } elseif(isset($submit) && isset($email) && isset($pass)){
         //Enregistrement de l'utilisateur
-        $message = saveUser($email, $pass);
+//        $message = saveUser($email, $pass);
+        $client = new ClientDTO;
+        $client->setEmail($email)->setNom($nom)->setMotDePasse($Pass);
+                
+        $dao = new ClientDAO(getPDO());
+        
+        if($dao->save($client)){
+            $message = "Vous êtes inscrit";
+        } else {
+        $message = "Votre inscription a échoué";    
+        }
         
         //Enregistrement du message en variable de session
         $_SESSION['message'] = $message;

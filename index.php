@@ -5,6 +5,7 @@ require 'lib/lib-mvc.php';
 require 'lib/lib-pdo.php';
 require 'models/userModel.php';
 require 'models/catalogueModel.php';
+require './autoload.php';
 
 session_start();
 
@@ -18,6 +19,10 @@ if(empty($controller)){
 } elseif(!file_exists(ROOT_FOLDER."/controllers/$controller.php")){
     $controller = 'mainController';
 }
+
+$dto = new ClientDTO;
+
+var_dump($dto);
 
 require ROOT_FOLDER."/controllers/$controller.php";
 
