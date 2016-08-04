@@ -1,28 +1,30 @@
 <?php
 
+//Auto chargement des classes
 function autoloader($class) {
-    // Dossier contenant les classes chargé en tableau
+    //Dossiers contenant les classes
     $folders = [
         'classes/',
         'classes/DAO/'
     ];
-
-    // je parcour le tableau de dossiers pour essayer de trouver les classes, et pour chaques fichiers presents :
+    //Boucle sur l'ensemble des dossiers
+    //pour trouver la classe
     foreach ($folders as $folder) {
         $path = $folder . $class . '.php';
-        $found = FALSE;
+        $found = false;
+
         if (file_exists($path)) {
-            $found = TRUE;
+            $found = true;
             require $path;
             break;
         }
-        
-        
     }
-// exception si la classe n'est pas trouvée
-        if (!$found) {
-            throw new Exception("le fichier $path n'existe pas!");
-        }
+
+    //Exception si la classe n'est pas trouvée
+    if (!$found) {
+        throw new Exception("Le fichier $class.php n'existe pas");
+    }
 }
 
 spl_autoload_register('autoloader');
+

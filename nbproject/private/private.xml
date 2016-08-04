@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/TP1PhP/classes/Panier.php</file>
+            <file>file:/C:/xampp/htdocs/TP1PhP/models/CRUD.php</file>
+            <file>file:/C:/xampp/htdocs/TP1PhP/classes/DAO/LivresDAO.php</file>
             <file>file:/C:/xampp/htdocs/TP1PhP/models/catalogueModel.php</file>
+            <file>file:/C:/xampp/htdocs/TP1PhP/classes/DAO/LivresDTO.php</file>
         </group>
     </open-files>
 </project-private>

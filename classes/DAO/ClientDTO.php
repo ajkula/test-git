@@ -12,10 +12,15 @@
  * @author formation
  */
 class ClientDTO {
-    private $clientID;
+    
+    private $clientId;
+    
     private $nom;
+    
     private $email;
+    
     private $motDePasse;
+    
     private $motDePasseEnClair;
     
     public function getMotDePasseEnClair() {
@@ -27,9 +32,9 @@ class ClientDTO {
         return $this;
     }
 
-    
-    public function getClientID() {
-        return $this->clientID;
+        
+    public function getClientId() {
+        return $this->clientId;
     }
 
     public function getNom() {
@@ -44,8 +49,8 @@ class ClientDTO {
         return $this->motDePasse;
     }
 
-    public function setClientID($clientID) {
-        $this->clientID = $clientID;
+    public function setClientId($clientId) {
+        $this->clientId = $clientId;
         return $this;
     }
 
@@ -63,11 +68,10 @@ class ClientDTO {
         $this->motDePasse = $motDePasse;
         return $this;
     }
-
-
-
-
+    
+    public function __sleep() {
+        return [
+            'nom', 'email', 'clientId'
+        ];
+    }    
 }
-
-
-

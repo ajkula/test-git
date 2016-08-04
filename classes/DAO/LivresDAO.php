@@ -7,11 +7,11 @@
  */
 
 /**
- * Description of ClientDAO
+ * Description of livresDAO
  *
  * @author formation
  */
-class ClientDAO implements IDAO {
+class livresDAO implements IDAO{
 
     /**
      *
@@ -33,7 +33,7 @@ class ClientDAO implements IDAO {
      * ]
      */
     public function find(array $search) {
-        $sql = "SELECT * FROM clients ";
+        $sql = "SELECT * FROM chapitre.livres";
 
         if (count($search) > 0) {
             $sql .= " WHERE ";
@@ -59,7 +59,7 @@ class ClientDAO implements IDAO {
      * @return array
      */
     public function findAll() {
-        $sql = "SELECT * FROM clients";
+        $sql = "SELECT * FROM chapitre.livres";
         $data = $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
@@ -69,7 +69,7 @@ class ClientDAO implements IDAO {
      * @param int $id la clef primaire
      */
     public function findById($id) {
-        $sql = "SELECT * FROM clients WHERE client_id=?";
+        $sql = "SELECT * FROM chapitre.livres WHERE client_id=?";
         $statement = $this->pdo->prepare($sql);
         $statement->execute([$id]);
 
@@ -79,7 +79,7 @@ class ClientDAO implements IDAO {
     public function delete($dto) {
         $success =  false;
         if($dto->getClientId() != null){
-            $sql = "DELETE FROM clients WHERE client_id=?";
+            $sql = "DELETE FROM `chapitre`.`livres` WHERE `id`=?";
             $statement = $this->pdo->prepare($sql);
             $success = $statement->execute([$dto->getClientId()]);
         }
@@ -100,13 +100,16 @@ class ClientDAO implements IDAO {
     }
     
     private function insert($dto){
-        $sql = "INSERT INTO clients (nom, email, mot_de_passe) VALUES (?,?,?)";
+        $sql = "INSERT INTO livres (isbn, titre, date_publication, nb_pages, prix, id_langue)  VALUES (?,?,?,?,?,?)";
         $statement = $this->pdo->prepare($sql);
         $success= $statement->execute(
                 [
-                    $dto->getNom(),
-                    $dto->getEmail(),
-                    sha1($dto->getMotDePasseEnClair())
+                    $dto->getIsbn(),
+                    $dto->getTitre(),
+                    $dto->getDate_publication(),
+                    $dto->getNb_pages(),
+                    $dto->getPrix(),
+                    $dto->getId_langue()
                 ]
         );
         
@@ -119,14 +122,22 @@ class ClientDAO implements IDAO {
     }
     
     private function update($dto){
-        $sql = "UPDATE clients SET nom=?, email=?, mot_de_passe=? WHERE client_id=?";
+        
+//         UPDATE `chapitre`.`livres` SET `id`='200', `isbn`='978287974586', 
+// *      `titre`='Socialisation politiq ue au Parlement européen', `date_publication`='2013-11-24',
+// *      `nb_pages`='38', `prix`='21.01', `id_langue`='1' WHERE `id`='2000'
+        
+        $sql = "UPDATE livres SET isbn=?, titre=?, date_publication=?, nb_pages=?, prix=?, id_langue=? WHERE client_id=?";
         $statement = $this->pdo->prepare($sql);
         return $statement->execute(
                 [
-                    $dto->getNom(),
-                    $dto->getEmail(),
-                    $dto->getMotDePasse(),
-                    $dto->getClientId()
+                    $dto->getIsbn(),
+                    $dto->getTitre(),
+                    $dto->getDate_publication(),
+                    $dto->getNb_pages(),
+                    $dto->getPrix(),
+                    $dto->getId_langue(),
+                    $dto->getId()
                 ]
         );
     }

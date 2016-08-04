@@ -19,23 +19,28 @@ if(isset($submit)){
         $message = "Votre mot de passe doit comporter au moins 5 caractères";
     } elseif(isset($submit) && isset($email) && isset($pass)){
         //Enregistrement de l'utilisateur
-//        $message = saveUser($email, $pass);
+        //$message = saveUser($email, $pass);
+        
         $client = new ClientDTO;
-        $client->setEmail($email)->setNom($nom)->setMotDePasseEnClair($Pass);
-                
+        $client->setEmail($email)
+                ->setNom($nom)
+                ->setMotDePasseEnClair($pass);
+        
         $dao = new ClientDAO(getPDO());
+        
         $client = $dao->save($client);
+        
         if($client){
-            $message = "Vous êtes inscrit";
-            $_SESSION['client'] = serialize($client);
-            header('locavtion:index.php?controller=catalogue');
+           $message = "Vous êtes inscrit"; 
+           $_SESSION['client'] = serialize($client);
+           $_SESSION['message'] = $message;
+           header('location:index.php?controller=catalogue');
         } else {
-        $message = "Votre inscription a échoué";    
+            $message = "Votre inscription a échouée";
+            $_SESSION['message'] = $message;
+            header('location:index.php?controller=inscriptionController');
         }
         
-        //Enregistrement du message en variable de session
-        $_SESSION['message'] = $message;
-        header('location:index.php?controller=inscriptionController');
     }
 }
 

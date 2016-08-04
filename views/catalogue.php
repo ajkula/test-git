@@ -104,7 +104,9 @@
                         <p class="text-muted"><?= $livre['sous_titre'] ?></p>
                     </div>
                     <div class="col-md-3">
-                        <a href="#">Ajouter au panier</a>
+                        <a href="index.php?controller=ajoutPanier&livre_id=<?= $livre['id']?>&pu=<?= $livre['prix']?>">
+                            Ajouter au panier
+                        </a>
                     </div>
 
 

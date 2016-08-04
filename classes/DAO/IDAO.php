@@ -11,9 +11,9 @@
  * @author formation
  */
 interface IDAO {
-
+    
     public function findAll();
-
+    
     public function findById($id);
     
     public function find(array $search);

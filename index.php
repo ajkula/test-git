@@ -5,22 +5,32 @@ require 'lib/lib-mvc.php';
 require 'lib/lib-pdo.php';
 require 'models/userModel.php';
 require 'models/catalogueModel.php';
-require './autoload.php';
+require 'autoload.php';
 
 session_start();
 
+ini_set('session_cookie_lifetime', 60*60);
+
 define('ROOT_FOLDER', __DIR__);
 
-// Gestion visiteur Anonyme
-if(!isset($_SESSION['client'])){
+//Gestion d'un client anonyme
+if(! isset($_SESSION['client'])){
     $client = new ClientDTO;
     $client->setNom("Anonyme");
+    
     $_SESSION['client'] = serialize($client);
-}else{
+} else {
     $client = unserialize($_SESSION['client']);
 }
 
-var_dump($client);
+//Récupération du panier
+if(isset($_SESSION['panier'])){
+    $panier = unserialize($_SESSION['panier']);
+    
+} else {
+    $panier = new Panier();
+}
+
 //Récupération du controller
 $controller = filter_input(INPUT_GET, 'controller');
 
@@ -29,9 +39,6 @@ if(empty($controller)){
 } elseif(!file_exists(ROOT_FOLDER."/controllers/$controller.php")){
     $controller = 'mainController';
 }
-
-$dto = new ClientDTO;
-
 
 require ROOT_FOLDER."/controllers/$controller.php";
 
